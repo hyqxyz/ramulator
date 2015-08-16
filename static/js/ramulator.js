@@ -84,84 +84,110 @@ class Interpreter{
   constructor(){
     this.registers = new Registers(16);
     this.tokenizer = new Tokenizer();
+    this.instrindex = 0;
   }
 
   run(){
     this.registers.emptyRegisters();
     this.tokenizer.tokenize();
-    this.execute(this.tokenizer.tokens);
+    this.execute();
   }
 
-  execute(tokenStream){
+  execute(){
+    //Execute instructions with a 500 millisecond interval.
+    var tokenStream = this.tokenizer.tokens;
+    var interpreter = this;
+    interpreter.instrindex = 0;
 
-    try{
-      for( var i = 0; i < tokenStream.length; i++ ){
-        //handle known ops first, else fall through to other handler.
-        //console.log(tokenStream[i]);
-        switch( tokenStream[i] ){
-          case "LOAD":
-            this.registers.content[0] = this.getValue(tokenStream[i+1]);
-            i++;
-            break;
-          case "STORE":
-            this.registers.content[ this.getValue(tokenStream[i+1],true) ] = this.registers.content[0];
-            i++;
-            break;
-          case "ADD":
-            this.registers.content[0] += this.getValue(tokenStream[i+1]);
-            i++;
-            break;
-          case "SUB":
-            this.registers.content[0] -= this.getValue(tokenStream[i+1]);
-            i++;
-            break;
-          case "MULT":
-            this.registers.content[0] *= this.getValue(tokenStream[i+1]);
-            i++;
-            break;
-          case "DIV":
-            this.registers.content[0] = Math.floor(this.registers.content[0] / this.getValue(tokenStream[i+1]));
-            i++;
-            break;
-          case "WRITE":
-            $("#output").html( this.getValue(tokenStream[i+1]) + "  " );
-            i++;
-            break;
-          case "JUMP":
-            i = this.findLabel(tokenStream[i+1]);
-            break;
-          case "JGTZ":
-            if(this.registers.content[0] > 0){
-              i = this.findLabel(tokenStream[i+1]);
-            }
-            else{
-              i++
-            }
-            break;
-          case "JZERO":
-            if(this.registers.content[0] == 0){
-              i = this.findLabel(tokenStream[i+1]);
-            }
-            else{
-              i++;
-            }
-          case "READ":
-            var read = NaN;
-            while(true){
-              read = prompt("Program is requesting an input number:", "");
-              if(this.checkInt(read)) break;
-            }
-            this.registers.content[ this.getValue(tokenStream[i+1],true) ] = read;
-            i++;
-            break;
-          case "HALT":
-            return;
-          default:
-            throw "Unknown instruction" + "  '" + tokenStream[i] + "'";
-            break;
-        }
-        this.registers.adjustTable();
+    var id = setInterval(function() {
+
+      if(interpreter.instrindex === tokenStream.length){
+          clearInterval(id);
+          $("#execute-button").show(100);
       }
+
+      if(interpreter.executeInstruction(tokenStream,interpreter) === -1){
+        clearInterval(id);
+        $("#execute-button").show(100);
+      }
+      interpreter.instrindex++;
+    }, 500);
+  }
+
+  executeInstruction(tokenStream,obj){
+    var i = obj.instrindex;
+    $("#instr").html(tokenStream[i]);
+    if(tokenStream[i] != "HALT"){
+      $("#operand").html(tokenStream[i+1]);
+    }
+    else{
+      $("#operand").html("");
+    }
+    $("#info").html($("#"+tokenStream[i]).html());
+    try{
+      switch( tokenStream[i] ){
+        case "LOAD":
+          this.registers.content[0] = this.getValue(tokenStream[i+1]);
+          obj.instrindex += 1;
+          break;
+        case "STORE":
+          this.registers.content[ this.getValue(tokenStream[i+1],true) ] = this.registers.content[0];
+          obj.instrindex += 1;
+          break;
+        case "ADD":
+          this.registers.content[0] += this.getValue(tokenStream[i+1]);
+          obj.instrindex += 1;
+          break;
+        case "SUB":
+          this.registers.content[0] -= this.getValue(tokenStream[i+1]);
+          obj.instrindex += 1;
+          break;
+        case "MULT":
+          this.registers.content[0] *= this.getValue(tokenStream[i+1]);
+          obj.instrindex += 1;
+          break;
+        case "DIV":
+          this.registers.content[0] = Math.floor(this.registers.content[0] / this.getValue(tokenStream[i+1]));
+          obj.instrindex += 1;
+          break;
+        case "WRITE":
+          $("#output").html( this.getValue(tokenStream[i+1]) + "  " );
+          obj.instrindex += 1;
+          break;
+        case "JUMP":
+          obj.instrindex = this.findLabel(tokenStream[i+1]);
+          break;
+        case "JGTZ":
+          if(this.registers.content[0] > 0){
+            obj.instrindex = this.findLabel(tokenStream[i+1]);
+          }
+          else{
+            obj.instrindex += 1
+          }
+          break;
+        case "JZERO":
+          if(this.registers.content[0] == 0){
+            obj.instrindex = this.findLabel(tokenStream[i+1]);
+          }
+          else{
+            obj.instrindex += 1;
+          }
+        case "READ":
+          var read = NaN;
+          while(true){
+            read = prompt("Program is requesting an input number:", "");
+            if(this.checkInt(read)) break;
+          }
+          this.registers.content[ this.getValue(tokenStream[i+1],true) ] = read;
+          obj.instrindex += 1;
+          break;
+        case "HALT":
+          return -1;
+        default:
+          throw "Unknown instruction" + "  '" + tokenStream[i] + "'";
+          break;
+      }
+      this.registers.adjustTable();
     }
     catch(err){
       $("#output").html("<b style='color: red'>" + err + " </b>");
@@ -269,6 +295,7 @@ $(function() {
 
   $( "#execute-button" ).click(function() {
     //console.log("Execution event");
+    $("#execute-button").hide(100);
     interpreter.run();
   });
 });

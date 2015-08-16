@@ -71,12 +71,26 @@ HALT
           </script>
 
         </div>
+
         <div class="well">
+          <table class="table table-bordered">
+            <tr>
+              <td class="col-md-4">Instruction</td>
+              <td class="col-md-4">Operand</td>
+              <td class="col-md-4">Info</td>
+            </tr>
+            <tr>
+              <td id="instr" class="col-md-4"></td>
+              <td id="operand" class="col-md-4"></td>
+              <td id="info" class="col-md-4"></td>
+            </tr>
+          </table>
+          </br>
           <p id="output">Output will be displayed here.</p>
         </div>
 
         <!-- button to execute the program -->
-        <a class="btn btn-success" role="button" id="execute-button">
+        <a class="btn btn-success" id="execute-button">
           <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Execute
         </a>
 
@@ -122,73 +136,73 @@ HALT
                 <td>advised modes</td>
               <tr>
                 <td>LOAD</td>
-                <td>Loads a value to R0</td>
+                <td id="LOAD">Loads a value to R0</td>
                 <td>i , *i , =i</td>
               </tr>
 
               <tr>
                 <td>STORE</td>
-                <td>Stores R0 in the register specified as the operand</td>
+                <td id="STORE">Stores R0 in the register specified as the operand</td>
                 <td>i , *i</td>
               </tr>
 
               <tr>
                 <td>ADD</td>
-                <td>Adds the operand value to R0 and stores it in R0</td>
+                <td id="ADD">Adds the operand value to R0 and stores it in R0</td>
                 <td>i , *i , =i</td>
               </tr>
 
               <tr>
                 <td>SUB</td>
-                <td>Subtracts the operand value from R0 and stores it in R0</td>
+                <td id="SUB">Subtracts the operand value from R0 and stores it in R0</td>
                 <td>i , *i , =i</td>
               </tr>
 
               <tr>
                 <td>MULT</td>
-                <td>Multiplies the operand value with R0 and stores it in R0</td>
+                <td id="MULT">Multiplies the operand value with R0 and stores it in R0</td>
                 <td>i , *i, =i</td>
               </tr>
 
               <tr>
                 <td>DIV</td>
-                <td>Divides R0 by the operand value, rounds down to an integer and stores it in R0</td>
+                <td id="DIV">Divides R0 by the operand value, rounds down to an integer and stores it in R0</td>
                 <td>i , *i, =i</td>
               </tr>
 
               <tr>
                 <td>READ</td>
-                <td>Reads in a value and stores it in the register specified as operand</td>
+                <td id="READ">Reads in a value and stores it in the register specified as operand</td>
                 <td>i , *i</td>
               </tr>
 
               <tr>
                 <td>WRITE</td>
-                <td>Writes the operand value to the output box</td>
+                <td id="WRITE">Writes the operand value to the output box</td>
                 <td>i , *i , =i</td>
               </tr>
 
               <tr>
                 <td>JUMP</td>
-                <td>Jumps unconditionally to the label specified as operand</td>
+                <td id="JUMP">Jumps unconditionally to the label specified as operand</td>
                 <td>b</td>
               </tr>
 
               <tr>
                 <td>JGTZ</td>
-                <td>Jumps to the label specified as operand if R0 > 0</td>
+                <td id="JGTZ">Jumps to the label specified as operand if R0 > 0</td>
                 <td>b</td>
               </tr>
 
               <tr>
                 <td>JZERO</td>
-                <td>Jumps to the label specified as operand if R0 == 0</td>
+                <td id="JZERO">Jumps to the label specified as operand if R0 == 0</td>
                 <td>b</td>
               </tr>
 
               <tr>
                 <td>HALT</td>
-                <td>Used to mark the end of the program</td>
+                <td id="HALT">Used to mark the end of the program</td>
                 <td>None</td>
               </tr>
 
