@@ -1,0 +1,22 @@
+
+
+#rmul-header{
+  /*background-color:#F08902;*/
+  text-align: center;
+  box-shadow: 0px 0px 10px #000000;
+
+}
+
+#rmul-header-text{
+  margin-top:0px;
+  padding: 10px;
+  color: white;
+}
+
+#register-table{
+  box-shadow: 0px 0px 10px #000000;
+}
+
+/*.well{
+  background-color: black;
+}*/
