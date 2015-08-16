@@ -34,7 +34,34 @@
       <div class="col-md-10">
         <!-- code & output -->
         <div class="well">
-          <textarea id="codeArea">Write your program here.</textArea>
+          <textarea id="codeArea">READ 1
+LOAD 1
+JGTZ "pos"
+WRITE =0
+JUMP "endif"
+"pos"
+LOAD 1
+STORE 2
+LOAD 1
+SUB =1
+STORE 3
+"while"
+LOAD 3
+JGTZ "continue"
+JUMP "endwhile"
+"continue"
+LOAD 2
+MULT 1
+STORE 2
+LOAD 3
+SUB =1
+STORE 3
+JUMP "while"
+"endwhile"
+WRITE 2
+"endif"
+HALT
+"INFO: test program calculates n^n (only for small numbers)."</textArea>
 
           <script>
             var editor = CodeMirror.fromTextArea(codeArea, {
