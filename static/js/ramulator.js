@@ -151,7 +151,7 @@ class Interpreter{
           obj.instrindex += 1;
           break;
         case "WRITE":
-          $("#output").html( this.getValue(tokenStream[i+1]) + "  " );
+          $("#output").append( this.getValue(tokenStream[i+1]) + "  " );
           obj.instrindex += 1;
           break;
         case "JUMP":
@@ -297,6 +297,7 @@ $(function() {
   $( "#execute-button" ).click(function() {
     //console.log("Execution event");
     $("#execute-button").hide(100);
+    $("#output").html("");
     interpreter.run();
   });
 

@@ -72,32 +72,32 @@ HALT
 
         </div>
 
+        <table class="table table-bordered shadow">
+          <tr class="success">
+            <td class="col-md-2"><b>Instruction</b></td>
+            <td class="col-md-2"><b>Operand</b></td>
+            <td class="col-md-5"><b>Info</b></td>
+            <td class="col-md-3"><b>Program Output</b></td>
+          </tr>
+          <tr>
+            <td id="instr" class="col-md-2 text-center"></td>
+            <td id="operand" class="col-md-2 text-center"></td>
+            <td id="info" class="col-md-5 text-center"></td>
+            <td id="output" class="col-md-3 text-center"></td>
+          </tr>
+        </table
+
         <div class="well">
-          <table class="table table-bordered shadow">
-            <tr class="success">
-              <td class="col-md-4"><b>Instruction</b></td>
-              <td class="col-md-4"><b>Operand</b></td>
-              <td class="col-md-4"><b>Info</b></td>
-            </tr>
-            <tr>
-              <td id="instr" class="col-md-4 text-center"></td>
-              <td id="operand" class="col-md-4 text-center"></td>
-              <td id="info" class="col-md-4 text-center"></td>
-            </tr>
-          </table>
-          </br>
-          <p id="output">Output will be displayed here.</p>
+          <!-- button to execute the program -->
+          <a class="btn btn-success" id="execute-button">
+            <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Execute
+          </a>
+
+          <!-- button to hide instruction list -->
+          <a class="btn btn-info" role="button" data-toggle="collapse" href="#instructions" aria-expanded="false" aria-controls="instructions">
+            Show documentation
+          </a>
         </div>
-
-        <!-- button to execute the program -->
-        <a class="btn btn-success" id="execute-button">
-          <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Execute
-        </a>
-
-        <!-- button to hide instruction list -->
-        <a class="btn btn-info" role="button" data-toggle="collapse" href="#instructions" aria-expanded="false" aria-controls="instructions">
-          Show documentation
-        </a>
 
 
 
@@ -229,8 +229,8 @@ HALT
           <button type="button" class="btn btn-default" id="register_amount_update">Update</button>
         </form>
         <div class="ui-content">
-          <label for="points">Execution step delay: <b id="speed">1000</b> milliseconds</label>
-          <input type="range" name="points" id="points" value="1000" min="0" max="5000">
+          <label for="points">Execution step delay: <b id="speed">0</b> milliseconds</label>
+          <input type="range" name="points" id="points" value="0" min="0" max="10000">
         </div>
 
       </div>
