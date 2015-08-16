@@ -73,16 +73,16 @@ HALT
         </div>
 
         <div class="well">
-          <table class="table table-bordered">
-            <tr>
-              <td class="col-md-4">Instruction</td>
-              <td class="col-md-4">Operand</td>
-              <td class="col-md-4">Info</td>
+          <table class="table table-bordered shadow">
+            <tr class="success">
+              <td class="col-md-4"><b>Instruction</b></td>
+              <td class="col-md-4"><b>Operand</b></td>
+              <td class="col-md-4"><b>Info</b></td>
             </tr>
             <tr>
-              <td id="instr" class="col-md-4"></td>
-              <td id="operand" class="col-md-4"></td>
-              <td id="info" class="col-md-4"></td>
+              <td id="instr" class="col-md-4 text-center"></td>
+              <td id="operand" class="col-md-4 text-center"></td>
+              <td id="info" class="col-md-4 text-center"></td>
             </tr>
           </table>
           </br>
@@ -98,6 +98,9 @@ HALT
         <a class="btn btn-info" role="button" data-toggle="collapse" href="#instructions" aria-expanded="false" aria-controls="instructions">
           Show documentation
         </a>
+
+
+
         <hr>
         <!-- Instruction list. -->
         <div class="well collapse" id="instructions">
@@ -225,6 +228,10 @@ HALT
           </div>
           <button type="button" class="btn btn-default" id="register_amount_update">Update</button>
         </form>
+        <div class="ui-content">
+          <label for="points">Execution step delay: <b id="speed">1000</b> milliseconds</label>
+          <input type="range" name="points" id="points" value="1000" min="0" max="5000">
+        </div>
 
       </div>
 

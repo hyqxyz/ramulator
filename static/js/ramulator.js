@@ -31,7 +31,7 @@ class Registers{
     $("#register-table").empty();
     for( var i = -1; i < this.content.length; i++ ){
       if(i == -1){
-        $("#register-table").append("<tr class='warning'><td>R</td><td>Value</td></tr>");
+        $("#register-table").append("<tr class='warning shadow'><td><b>R</b></td><td><b>Value</b></td></tr>");
       }
       else{
         $("#register-table").append("<tr><td>R" + i + "</td><td>" + this.content[i] + "</td></tr>");
@@ -111,7 +111,7 @@ class Interpreter{
         $("#execute-button").show(100);
       }
       interpreter.instrindex++;
-    }, 500);
+    }, parseInt($("#points").val()));
   }
 
   executeInstruction(tokenStream,obj){
@@ -183,15 +183,16 @@ class Interpreter{
           break;
         case "HALT":
           return -1;
+          break;
         default:
-          throw "Unknown instruction" + "  '" + tokenStream[i] + "'";
+          throw "Unknown instruction" + "  '" + tokenStream[i] + "'" + ". Or program does not end on HALT";
           break;
       }
       this.registers.adjustTable();
     }
     catch(err){
       $("#output").html("<b style='color: red'>" + err + " </b>");
-      return;
+      return -1;
     }
   }
 
@@ -297,5 +298,9 @@ $(function() {
     //console.log("Execution event");
     $("#execute-button").hide(100);
     interpreter.run();
+  });
+
+  $("#points").bind("propertychange change click keyup input paste", function(event){
+    $("#speed").html( $("#points").val() );
   });
 });
