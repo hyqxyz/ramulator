@@ -99,6 +99,14 @@ class Interpreter{
     var interpreter = this;
     interpreter.instrindex = 0;
 
+    //first step has no delay.
+    if(interpreter.executeInstruction(tokenStream,interpreter) === -1){
+      clearInterval(id);
+      $("#execute-button").show(100);
+    }
+    interpreter.instrindex++;
+
+    //all following steps are calculated with a delay.
     var id = setInterval(function() {
 
       if(interpreter.instrindex === tokenStream.length){
